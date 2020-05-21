@@ -7,44 +7,44 @@
 
 int main()
 {
-    char input[20];
-    char txt[20];
-    char c;
+    char s;
     int i;
+    char input[100];
+    char txt[100];
     gets_s(input);
-    c = input[1];
+    s = input[1];
     int lenth = strlen(input);
     for (i = 3;i < lenth;i++)
     {
         txt[i - 3] = input[i];
     }
     txt[i - 3] = '\0';
-
-    errno_t err;
+    errno_t errnot;
     FILE* fp;
     char buffer[256] = { 0 };
-    err = fopen_s(&fp, txt, "r");
-    if (err != 0)
+    errnot = fopen_s(&fp, txt, "r");
+    if (errnot != 0)
     {
         printf("文件打开失败");
     }
     else {
         fread(buffer, sizeof(buffer), 1, fp);
-        int wn = 0, cn = 0, nn = 0;
+        int bd = 0, zf = 0, hc = 0;
         for (i = 0;i < strlen(buffer);i++)
         {
             char ch = buffer[i];
             if (ch == '\n')
-                nn++;
+                hc++;
             if (ch == ' ' || ch == '\n' || ch == '\t')
-                cn++;
+                zf++;
             if (ch == ' ' || ch == ',' || ch == '.')
-                wn++;
+                bd++;
         }
-        if (c == 'C')
-            printf("%d\n", cn);
-        if (c == 'W')
-            printf("%d", wn - nn);
+        int dc = zf - hc;
+        if (s == 'c')
+            printf("字符数为: %d\n", zf);
+        if (s == 'w')
+            printf("单词数为：%d\n", dc);
         fclose(fp);
     }
     return 0;
